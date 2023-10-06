@@ -16,6 +16,7 @@ public class OrderUserByParameterUseCaseTest {
 
     @BeforeAll
     void init(){
+
         orderUserByParameterUseCase = new OrderUserByParameterUseCase();
     }
 
