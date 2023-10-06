@@ -55,8 +55,6 @@ public class OrderUserByParameterUseCase {
             users.sort(Comparator.comparing(User::getEmail).reversed());
             return users;
         }
-
-
         //TODO Si el parametro es vacio debemos retornar la lista tal cual como esta
         //TODO El parametro a ordenar puede ser firstName, firstLastName o email unicamente
         //TODO Si el parametro es firstName debemos ordenar por el primer nombre
