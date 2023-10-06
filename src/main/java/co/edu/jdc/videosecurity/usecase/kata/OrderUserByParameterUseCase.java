@@ -6,19 +6,20 @@ import java.util.List;
 
 public class OrderUserByParameterUseCase {
 
-    public List<User> orderUsersByParameter(List<User> users, String parameter, boolean asc){
-        //TODO Debemos construir la logica para ordenar los usuarios por el parametro que llega en parameter y de forma ascendente o descendente segun el booleano
-        //TODO Si el parametro no existe debemos retornar la lista tal cual como esta
-        //TODO Si el parametro es null debemos retornar la lista tal cual como esta
-        //TODO Si la lista es null debemos retornar null
-        //TODO Si la lista esta vacia debemos retornar la lista tal cual como esta
-        //TODO Si el parametro es vacio debemos retornar la lista tal cual como esta
-        //TODO El parametro a ordenar puede ser firstName, firstLastName o email unicamente
-        //TODO Si el parametro es firstName debemos ordenar por el primer nombre
-        //TODO Si el parametro es firstLastName debemos ordenar por el primer apellido
-        //TODO Si el parametro es email debemos ordenar por el email
-        //TODO Si el parametro es otro debemos retornar la lista tal cual como esta
-        return null;
-    }
+    public List<User> orderUsersByParameter(List<User> users, String parameter, boolean asc) {
 
+        if (users == null || users.isEmpty() || parameter == null || parameter.isEmpty())
+            return users;
+
+        if (parameter.equals("firstName"))
+            users.sort((u1, u2) -> asc ? u1.getFirstName().compareTo(u2.getFirstName()) : u2.getFirstName().compareTo(u1.getFirstName()));
+        if (parameter.equals("firstLastName"))
+            users.sort((u1, u2) -> asc ? u1.getFirstLastName().compareTo(u2.getFirstLastName()) : u2.getFirstLastName().compareTo(u1.getFirstLastName()));
+        if (parameter.equals("email"))
+            users.sort((u1, u2) -> asc ? u1.getEmail().compareTo(u2.getEmail()) : u2.getEmail().compareTo(u1.getEmail()));
+
+        return users;
+
+
+    }
 }
