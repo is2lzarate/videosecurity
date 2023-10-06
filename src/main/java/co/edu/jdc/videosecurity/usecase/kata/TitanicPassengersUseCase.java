@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class TitanicPassengersUseCase {
 
-    public Integer quantityOfParameter(ParameterEnum parameter) {
+    public Integer quantityOfParameter(ParameterEnum parameter, Object value) {
         //TODO: Implementar el método para que retorne la cantidad de pasajeros que cumplieron con el parámetro
         //TODO: Debe leer el archivo titanic.csv en los recursos
         //TODO: Debe retornar 0 si no hay pasajeros que cumplan con el parámetro
