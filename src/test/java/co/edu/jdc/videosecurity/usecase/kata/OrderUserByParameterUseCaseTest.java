@@ -28,7 +28,7 @@ public class OrderUserByParameterUseCaseTest {
 
     @Test
     void givenListEmptyShouldReturnEmpty () {
-        List<User> listEmpty = List.of();
+        List<User> listEmpty = getListUsers();
         List<User> result = orderUserByParameterUseCase.orderUsersByParameter(listEmpty, "firstName", true);
         Assertions.assertEquals(listEmpty, result);
     }
