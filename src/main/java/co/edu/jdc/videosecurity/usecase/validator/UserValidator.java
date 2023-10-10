@@ -21,5 +21,6 @@ public class UserValidator {
             throw new UserException("La contraseña no puede ser nula o vacia");
         if(dto.getUsername() == null || dto.getUsername().trim().isEmpty())
             throw new UserException("El nombre de usuario no puede ser nulo o vacio");
+
     }
 }
