@@ -21,15 +21,20 @@ public class OrderUserByParameterUseCase {
         //TODO Si el parametro no existe debemos retornar la lista tal cual como esta
 
         //TODO Si el parametro es null debemos retornar la lista tal cual como esta
-        if (parameter == null) {
+
+        if (parameter == null || users == null || users.isEmpty() || parameter.isEmpty() && asc){
+            return users;
+        } if(parameter.equals("firstName") && asc == true && users == null){
             return users;
         }
+        // git mersh
+
         if (parameter.equals("other") && asc == true) {
             return users;
         }else if(parameter.equals("other")){
             return users;
         }
-        //TODO Si la lista es null debemos retornar null
+       /* //TODO Si la lista es null debemos retornar null
         if (users == null) {
             return null;
         }
@@ -40,7 +45,7 @@ public class OrderUserByParameterUseCase {
         //TODO Si el parametro es vacio debemos retornar la lista tal cual como esta
         if (parameter.isEmpty()) {
             return users;
-        }
+        }*/
         //TODO El parametro a ordenar puede ser firstName, firstLastName o email unicamente
 
         if (!parameter.equals("firstName") && !parameter.equals("firstLastName") && !parameter.equals("email") && !parameter.equals("other") && parameter.equals("other") ) {
