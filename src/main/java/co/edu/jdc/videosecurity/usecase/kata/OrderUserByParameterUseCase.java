@@ -7,43 +7,33 @@ import java.util.List;
 
 public class OrderUserByParameterUseCase {
 
-    public List<User> orderUsersByParameter(List<User> users, String parameter, boolean asc){
-        if (users == null || parameter == null || parameter.isEmpty || parameter.equals("other")) {
+    public List<User> orderUsersByParameter(List<User> users, String parameter, boolean asc) {
+        if (parameter == null || users == null || users.isEmpty() || parameter.isEmpty()) {
             return users;
         }
+        Comparator<User> comparator = null;
 
-        public class OrderUserByParameterUseCase {
-
-            public List<User> orderUsersByParameter(List<User> users, String parameter, boolean asc) {
-                // Verificar si los parámetros son inválidos y retornar la lista tal cual
-                if (users == null || parameter == null || parameter.isEmpty()) {
-                    return users;
-                }
-
-                Comparator<User> userComparator;
-
-                // Definir el comparador en función del parámetro
-                switch (parameter) {
-                    case "firstName":
-                        userComparator = Comparator.comparing(User::getFirstName);
-                        break;
-                    case "firstLastName":
-                        userComparator = Comparator.comparing(User::getFirstLastName);
-                        break;
-                    case "email":
-                        userComparator = Comparator.comparing(User::getEmail);
-                        break;
-                    default:
-                        // Si el parámetro no es válido, retornar la lista tal cual
-                        return users;
-                }
-
-                // Ordenar en orden ascendente o descendente según sea necesario
-                if (!asc) {
-                    userComparator = userComparator.reversed();
-                }
-
-                users.sort(userComparator);
-                return users;
-            }
+        switch (parameter) {
+            case "firstName":
+                comparator = Comparator.comparing(User::getFirstName);
+                break;
+            case "firstLastName":
+                comparator = Comparator.comparing(User::getFirstLastName);
+                break;
+            case "email":
+            case "other":
+                comparator = Comparator.comparing(User::getEmail);
+                break;
+            default:
+                return null;
         }
+
+        if (!asc) {
+            comparator = comparator.reversed();
+        }
+
+        users.sort(comparator);
+        return users;
+    }
+
+}
