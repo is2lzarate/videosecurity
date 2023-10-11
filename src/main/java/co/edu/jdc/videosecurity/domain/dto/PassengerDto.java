@@ -12,4 +12,13 @@ public class PassengerDto {
     private String name;
     private String sex;
     private Integer age;
+
+    public PassengerDto (Long passengerId,  Boolean survived, Integer pclass, String name, String sex, Integer age) {
+        this.passengerId = passengerId;
+        this.survived = survived;
+        this.pclass = pclass;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+    }
 }

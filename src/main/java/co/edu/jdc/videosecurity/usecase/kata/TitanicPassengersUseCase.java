@@ -21,25 +21,23 @@ public class TitanicPassengersUseCase {
     private String linea; //recibe cada linea
     private String[] datos; //recibe los datos de cada linea
     FileHandler fileHandler;
+    String ruta = "src/main/resources/titanic.csv";
 
 
-    public Integer quantityOfParameter(ParameterEnum parameter, Object value) {
+    public Integer quantityOfParameter (ParameterEnum parameter, Object value, String ruta) {
         if (parameter == null || value == null) {
             return null;
         }
-
-        String ruta = "src/main/resources/titanic.csv";
         int count = 0;
-
         try {
-            BufferedReader lector = new BufferedReader(new FileReader(ruta));
+            BufferedReader lector = new BufferedReader (new FileReader (ruta));
 
             String linea;
             String[] datos;
 
-            String primeraLinea = lector.readLine();
-            if (!primeraLinea.equals("PassengerId,Survived,Pclass,Name,Sex,Age")) {
-                System.out.println("El archivo no tiene el formato correcto");
+            String primeraLinea = lector.readLine ();
+            if (! primeraLinea.equals ("PassengerId,Survived,Pclass,Name,Sex,Age")) {
+                System.out.println ("El archivo no tiene el formato correcto");
                 return null;
             }
 
@@ -62,17 +60,16 @@ public class TitanicPassengersUseCase {
                         System.out.println (datos[6]);
                     }
                 }
-
                 */
                 if (parameter == ParameterEnum.SEX) {
-                    if (datos[5].equalsIgnoreCase (value.toString ().trim ())) {
+                    if (datos[4].equalsIgnoreCase (value.toString ().trim ())) {
                         count++;
                     }
                 }
 
 
                 if (parameter == ParameterEnum.AGE) {
-                    if (datos[6].equals(value.toString())) {
+                    if (datos[5].equals(value.toString())) {
                         count++;
                     }
                 }
@@ -81,7 +78,7 @@ public class TitanicPassengersUseCase {
             lector.close();
             return count;
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
+            System.out.println ("Error al leer el archivo: " + e.getMessage ());
             return null;
         }
     }
@@ -98,66 +95,56 @@ public class TitanicPassengersUseCase {
     //TODO: Debe retornar null si el archivo no tiene la cantidad de columnas correctas
 
 
-    public Map<Integer, List<PassengerDto>> passengersByAgeRange (String fila) {
-  /*      List<PassengerDto> passengers = new ArrayList<> ();
-        String ruta = "src/main/resources/titanic.csv";
-        try {
-            BufferedReader lector = new BufferedReader (new FileReader (ruta));
-            CSVReader csvReader = new CSVReader (lector);
-            String primeraLinea = lector.readLine ();
-            if (csvReader == null || ruta.isEmpty ()) {
-                System.out.println ("Archivo no encontrado");
-                return null;
-            } else {
-                if (! primeraLinea.equals ("PassengerId,Survived,Pclass,Name,Sex,Age")) {
-                    System.out.println ("El archivo no tiene el formato correcto");
-                    return null;
-                }
-                List<String[]> rows = csvReader.readAll ();
-                for (int i = 1; i < rows.size (); i++) {
-                    String[] data = rows.get (i);
-                    PassengerDto passenger = createPassengerFromCsvData (data);
-                    if (passenger != null) {
-                        passengers.add (passenger);
-                    }
-                }
-                if (datos.length != 6) {
-                    System.out.println ("El archivo no tiene la cantidad de columnas correctas");
-                    return null;
-                }
-            }
-        } catch (IOException | CsvException e) {
-            e.printStackTrace ();
-
-        }
-
-        return (Map<Integer, List<PassengerDto>>) passengers;
-
-        //TODO: Implementar el método para que retorne un mapa donde la llave son los años y el valor es una lista de pasajeros
-        //TODO: Debe leer el archivo titanic.csv en los recursos
-        //TODO: Debe retornar null si el archivo no existe
-        //TODO: Debe retornar null si el archivo está vacío
-        //TODO: Debe retornar null si el archivo no tiene el formato correcto
-        //TODO: Debe retornar null si el archivo no tiene la cantidad de columnas correctas
-
-    }
-
-    public PassengerDto createPassengerFromCsvData (String[] data) {
-        try {
-            PassengerDto passenger = new PassengerDto ();
-            passenger.setPassengerId ((long) Integer.parseInt (data[0]));
-            passenger.setSurvived (Boolean.parseBoolean (data[1]));
-            passenger.setPclass (Integer.parseInt (data[2]));
-            passenger.setName (data[3]);
-            passenger.setSex (data[4]);
-            passenger.setAge (Integer.parseInt (data[5]));
-        } catch (NumberFormatException e) {
-            System.out.println ("Error al convertir los datos de dto a csv: " + e.getMessage ());
+    public Map<Integer, List<PassengerDto>> passengersByAgeRange (String ruta) {
+        Map<Integer, List<PassengerDto>> pasajeroEdad = new HashMap<> ();
+        if (ruta == null) {
             return null;
         }
+        try {
+            BufferedReader lector = new BufferedReader (new FileReader (ruta));
 
-   */
-        return null;
+            String linea;
+            String[] datos;
+
+            String primeraLinea = lector.readLine ();
+            if (! primeraLinea.equals ("PassengerId,Survived,Pclass,Name,Sex,Age")) {
+                System.out.println ("El archivo no tiene el formato correcto");
+                return null;
+            }
+
+            while ((linea = lector.readLine ()) != null) {
+                datos = linea.split (",");
+                int edad = Integer.parseInt (datos[5]);
+
+                if (! pasajeroEdad.containsKey (edad)) {
+                    pasajeroEdad.put (edad, new ArrayList<> ());
+                }
+                PassengerDto pasajero = new PassengerDto (
+                        Long.parseLong (datos[0]),
+                        Boolean.parseBoolean (datos[1]),
+                        Integer.parseInt (datos[2]),
+                        datos[3],
+                        datos[4],
+                        Integer.parseInt (datos[5])
+                );
+
+                pasajeroEdad.get (edad).add (pasajero);
+            }
+
+            lector.close ();
+            return pasajeroEdad;
+        } catch (IOException e) {
+            System.out.println ("Error al leer el archivo: " + e.getMessage ());
+            return null;
+        }
     }
+
+
+    //TODO: Implementar el método para que retorne un mapa donde la llave son los años y el valor es una lista de pasajeros
+    //TODO: Debe leer el archivo titanic.csv en los recursos
+    //TODO: Debe retornar null si el archivo no existe
+    //TODO: Debe retornar null si el archivo está vacío
+    //TODO: Debe retornar null si el archivo no tiene el formato correcto
+    //TODO: Debe retornar null si el archivo no tiene la cantidad de columnas correctas
 
 }
