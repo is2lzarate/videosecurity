@@ -11,12 +11,6 @@ public class OrderUserByParameterUseCase {
         if (users == null || parameter == null || parameter.isEmpty || parameter.equals("other")) {
             return users;
         }
-        package co.edu.jdc.videosecurity.usecase.kata;
-
-import co.edu.jdc.videosecurity.domain.entities.User;
-
-import java.util.Comparator;
-import java.util.List;
 
         public class OrderUserByParameterUseCase {
 
