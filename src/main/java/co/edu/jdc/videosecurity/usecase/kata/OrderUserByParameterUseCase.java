@@ -9,6 +9,9 @@ public class OrderUserByParameterUseCase {
     public List<User> orderUsersByParameter(List<User> users, String parameter, boolean asc){
         //TODO Debemos construir la logica para ordenar los usuarios por el parametro que llega en parameter y de forma ascendente o descendente segun el booleano
         //TODO Si el parametro no existe debemos retornar la lista tal cual como esta
+        if(parameter.isEmpty()){
+            return users;
+        }
         //TODO Si el parametro es null debemos retornar la lista tal cual como esta
         //TODO Si la lista es null debemos retornar null
         //TODO Si la lista esta vacia debemos retornar la lista tal cual como esta
