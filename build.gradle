@@ -38,6 +38,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// apache
 	implementation 'commons-codec:commons-codec:1.16.0'
+
+	implementation 'org.apache.commons:commons-csv:1.8'
 }
 
 test {

@@ -8,7 +8,7 @@ import co.edu.jdc.videosecurity.usecase.port.CipherInfo;
 import co.edu.jdc.videosecurity.adapter.repository.UserRepository;
 import co.edu.jdc.videosecurity.usecase.validator.UserValidator;
 
-public class CreateUserUseCase {
+public class .2020.CreateUserUseCase {
 
     private UserRepository userRepository;
 
